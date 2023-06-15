@@ -86,22 +86,27 @@ if (isset($message)) {
               <a class="nav-link active" aria-current="page" href="admin-message.php">Message</a>
             </li>
           </ul>
+          
 
-
+          
           <p>
-            <a class="btn btn-primary rounded-circle" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-outlinr-secondary rounded-circle" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
               <i class="bi bi-person-circle"></i>
 
             </a>
           </p>
           <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-              <p>Nama : <span><?php echo $_SESSION['admin_name']; ?></span></p>
-              <p>Email : <span><?php echo $_SESSION['email_admin']; ?></span></p>
+            <div class=" shadow p-3 mb-3 bg-body-tertiary z-3 ">
+              
+              <p>Nama : <span><?php echo $_SESSION['admin_nama']; ?></span></p>
+              <p>Email : <span><?php echo $_SESSION['admin_email']; ?></span></p>
 
               <a href="../../auth/logout.php" class="delete-btn">
                 <i class="bi bi-box-arrow-right"></i>
+                
               </a>
+
+              
             </div>
           </div>
 

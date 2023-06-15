@@ -43,7 +43,7 @@ session_start();
             <p> Type User : <span style="color:<?php if ($fetch_users['user_type'] == 'admin') {
                                                   echo 'color:blue;';
                                                 } ?>"><?php echo $fetch_users['user_type']; ?></span> </p>
-            <a href="admin-user.php?delete=<?php echo $fetch_users['id_user']; ?>" onclick="return confirm('delete this user?');" class="delete-btn">delete user</a>
+            <a href="admin-user.php?delete=<?php echo $fetch_users['id_user']; ?>" onclick="return confirm('delete this user?');" class="delete-btn">Hapus</a>
           </div>
         <?php
         };

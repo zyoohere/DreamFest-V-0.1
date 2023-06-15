@@ -25,10 +25,10 @@ session_start();
 <body>
   <?php include('admin-header.php') ?>
 
-  <h1 class="text-center">DASHBOARD</h1>
-  <section class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="shadow p-3 m-3 rounded ">
+  <h1 class="text-center m-5">D A S H B O A R D</h1>
+  <section class="container text-center px-4">
+    <div class="row g-3 p-4 m-5 justify-content-center align-items-center">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75  ">
         <?php
         $total_pendings = 0;
         $select_pending = mysqli_query($con, "SELECT total_harga FROM `transaksi` WHERE status_pembayaran = 'pending'") or die('query failed');
@@ -43,7 +43,7 @@ session_start();
         <p>Total Pendings</p>
 
       </div>
-      <div class="shadow p-3 m-3 rounded ">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $total_berhasil = 0;
         $select_berhasil = mysqli_query($con, "SELECT total_harga FROM `transaksi` WHERE status_pembayaran = 'berhasil'") or die('query failed');
@@ -57,7 +57,7 @@ session_start();
         <h3>Rp <?php echo $total_berhasil; ?> /-</h3>
         <p>Pembayaran Berhasil </p>
       </div>
-      <div class="shadow p-3 m-3 rounded">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $select_transaksi = mysqli_query($con, "SELECT * FROM `transaksi`") or die('query failed');
         $number_of_transaksi = mysqli_num_rows($select_transaksi);
@@ -66,7 +66,7 @@ session_start();
         <p>Pesanan Ditempatkan</p>
       </div>
 
-      <div class="shadow p-3 m-3 rounded">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $select_events = mysqli_query($con, "SELECT * FROM `events`") or die('query failed');
         $number_of_events = mysqli_num_rows($select_events);
@@ -74,8 +74,7 @@ session_start();
         <h3><?php echo $number_of_events; ?></h3>
         <p>Events Ditambahkan</p>
       </div>
-
-      <div class="shadow p-3 m-3 rounded">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $select_users = mysqli_query($con, "SELECT * FROM `user` WHERE user_type = 'costumer'") or die('query failed');
         $number_of_users = mysqli_num_rows($select_users);
@@ -84,7 +83,7 @@ session_start();
         <p>USER COSTUMER</p>
       </div>
 
-      <div class="shadow p-3 m-3 rounded">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $select_admins = mysqli_query($con, "SELECT * FROM `user` WHERE user_type = 'admin'") or die('query failed');
         $number_of_admins = mysqli_num_rows($select_admins);
@@ -93,7 +92,7 @@ session_start();
         <p>USER ADMIN</p>
       </div>
 
-      <div class="shadow p-3 m-3 rounded">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $select_account = mysqli_query($con, "SELECT * FROM `user`") or die('query gagal');
         $number_of_account = mysqli_num_rows($select_account);
@@ -102,7 +101,7 @@ session_start();
         <p>Total Account</p>
       </div>
 
-      <div class="shadow p-3 m-3 rounded">
+      <div class="col-5 shadow p-3 m-2 rounded border border-secondary p-2 mb-2 border-opacity-75 ">
         <?php
         $select_messages = mysqli_query($con, "SELECT * FROM `rate_view`") or die('query failed');
         $number_of_messages = mysqli_num_rows($select_messages);

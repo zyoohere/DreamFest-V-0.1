@@ -90,20 +90,30 @@ if (isset($_POST['update_events'])) {
 <body>
   <?php include('admin-header.php') ?>
 
-  <h1 class="text-center">Tampilan Events</h1>
+  <h1 class="text-center m-5">E V E N T S</h1>
 
   <section class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="shadow p-3 m-3 rounded">
+    <div class="row g-3 p-4 m-6 justify-content-center align-items-center">
+      <div class="shadow p-3 m-3 rounded" style="width: 700px;">
         <form action="" method="post" enctype="multipart/form-data">
-          <h3>Tambah Event</h3>
-          <input type="text" name="nama_events" class="box" placeholder="Masukan Nama Events" required>
-          <input type="number" min="0" name="harga_events" class="box" placeholder="Masukan Harga Events" required>
-          <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>
-          <input type="submit" value="add product" name="add_product" class="btn">
+          <h3 class="text-center m-3">Tambah Event</h3>
+          <div class="m-3">
+            <input type="text" name="nama_events" class="form-control" placeholder="Masukan Nama Events" required>
+          </div>
+          <div class="m-3">
+            <input type="number" min="0" name="harga_events" class="form-control" placeholder="Masukan Harga Events" required>
+          </div>
+          <div class="m-3">
+
+            <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="form-control" required>
+          </div>
+          <div class="m-3">
+
+            <input type="submit" value="add product" name="add_product" class="btn btn-outline-secondary form-control">
+          </div>
         </form>
       </div>
-      <div class="shadow p-3 m-3 rounded">
+      <div class="shadow p-3 m-3 rounded text-center" style="width: 700px;">
 
         <?php
         $select_events = mysqli_query($con, "SELECT * FROM `events`") or die('query gagal');
@@ -114,8 +124,8 @@ if (isset($_POST['update_events'])) {
               <img src="uploaded_img/<?php echo $fetch_events['image']; ?>" alt="">
               <div class="nama_events"><?php echo $fetch_events['nama_events']; ?></div>
               <div class="harga_events">Rp <?php echo $fetch_events['harga_events']; ?> /-</div>
-              <a href="admin-events.php?update=<?php echo $fetch_events['id_events']; ?>" class="option-btn">update</a>
-              <a href="admin-events.php?delete=<?php echo $fetch_events['id_events']; ?>" class="delete-btn" onclick="return confirm('Hapus Event ini?');">Hapus</a>
+              <a href="admin-events.php?update=<?php echo $fetch_events['id_events']; ?>" class="btn btn-secondary">update</a>
+              <a href="admin-events.php?delete=<?php echo $fetch_events['id_events']; ?>" class="btn text-decoration-none" onclick="return confirm('Hapus Event ini?');">Hapus</a>
             </div>
         <?php
           }
@@ -124,7 +134,7 @@ if (isset($_POST['update_events'])) {
         }
         ?>
       </div>
-      <div class="shadow p-3 m-3 rounded">
+      <div class="shadow p-3 m-3 rounded" style="width: 700px;">
         <?php
         if (isset($_GET['update'])) {
           $update_id = $_GET['update'];
