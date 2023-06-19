@@ -40,8 +40,8 @@ if (isset($_GET['delete'])) {
 <body>
   <?php include('admin-header.php') ?>
 
-  <h1 class="text-center fs-3 fw-bold">TRANSAKSI</h1>
-  <section>
+  <h1 class="text-center m-5">T R A N S A K S I</h1>
+  <section class="d-flex justify-content-center">
     <div class="row justify-content-items">
       <div class="shadow m-5">
         <?php

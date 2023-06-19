@@ -23,11 +23,12 @@ if (isset($message)) {
 
   }
 
-  a:hover{
+  a:hover {
     padding-top: 2px;
     margin: 2px;
     text-decoration: underline solid 2px;
   }
+
   .bi {
     font-size: 1.8rem;
     cursor: pointer;
@@ -86,9 +87,11 @@ if (isset($message)) {
             </li>
           </ul>
 
-          .
+
           <div class="d-grip gap-2">
             <div class="p-2">
+              <a href="search-page.php"><i class="bi bi-search"></i></a>
+
               <a href="./cart.php"><i class="bi bi-bag-fill p-3"></i></a>
               <a href="./../auth/logout.php" class="delete-btn">
                 <i class="bi bi-box-arrow-right"></i>
