@@ -1,8 +1,25 @@
 <?php
 include '../auth/koneksi.php';
-
-
 session_start();
+
+if (isset($_POST['update_cart'])) {
+  $id_cart = $_POST['id_cart'];
+  $cart_jumlah = $_POST['jumlah_events'];
+  mysqli_query($con, "UPDATE `cart` SET jumlah_events = '$cart_jumlah' WHERE id_cart = '$id_cart'") or die('query gagal');
+  $message[] = 'Jumlah Terupdate!';
+}
+
+if (isset($_GET['delete'])) {
+  $delete_id = $_GET['delete'];
+  mysqli_query($con, "DELETE FROM `cart` WHERE id_cart = '$delete_id'") or die('query gagal');
+  header('location:cart.php');
+}
+
+if (isset($_GET['delete_all'])) {
+  mysqli_query($con, "DELETE FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
+  header('location:cart.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -69,8 +86,54 @@ session_start();
         <li class="breadcrumb-item active text-decoration-none fs-bold fs-5" aria-current="page">Cart</li>
       </ol>
     </div>
-
   </div>
+
+  <section class="shopping-cart">
+
+    <h1 class="title">products added</h1>
+
+    <div class="box-container">
+      <?php
+      $grand_total = 0;
+      $select_cart = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
+      if (mysqli_num_rows($select_cart) > 0) {
+        while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
+      ?>
+          <div class="box">
+            <a href="cart.php?delete=<?php echo $fetch_cart['id_cart']; ?>" class="fas fa-times" onclick="return confirm('delete this from cart?');"></a>
+            <img src="uploaded_img/<?php echo $fetch_cart['image']; ?>" alt="">
+            <div class="name"><?php echo $fetch_cart['nama']; ?></div>
+            <div class="price">Rp <?php echo $fetch_cart['harga_events']; ?>/-</div>
+            <form action="" method="post">
+              <input type="hidden" name="id_cart" value="<?php echo $fetch_cart['id_cart']; ?>">
+              <input type="number" min="1" name="cart_quantity" value="<?php echo $fetch_cart['jumlah_events']; ?>">
+              <input type="submit" name="update_cart" value="update" class="option-btn">
+            </form>
+            <div class="sub-total"> sub total : <span>Rp <?php echo $sub_total = ($fetch_cart['jumlah_events'] * $fetch_cart['harga_events']); ?>/-</span> </div>
+          </div>
+      <?php
+          $grand_total += $sub_total;
+        }
+      } else {
+        echo '<p class="empty">your cart is empty</p>';
+      }
+      ?>
+    </div>
+
+    <div style="margin-top: 2rem; text-align:center;">
+      <a href="cart.php?delete_all" class="delete-btn <?php echo ($grand_total > 1) ? '' : 'disabled'; ?>" onclick="return confirm('delete all from cart?');">delete all</a>
+    </div>
+
+    <div class="cart-total">
+      <p>Total Pembelian : <span>Rp <?php echo $grand_total; ?>/-</span></p>
+      <div class="flex">
+        <a href="shop-event.php" class="option-btn">continue shopping</a>
+        <a href="checkout.php" class="btn btn-secondary text-decoration-none<?php echo ($grand_total > 1) ? '' : 'disabled'; ?>">proceed to checkout</a>
+      </div>
+    </div>
+
+  </section>
+
   <?php include('./header-footer/footer.php') ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

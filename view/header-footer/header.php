@@ -42,7 +42,7 @@ if (isset($message)) {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 100;
   }
 
   header .header-2 .flex {
@@ -74,13 +74,13 @@ if (isset($message)) {
               <a class="nav-link active" aria-current="page" href="home.php">Home</a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link active" aria-current="page" href="typo.php">Typography</a>
+              <a class="nav-link active" aria-current="page" href="about.php">About</a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link active" aria-current="page" href="event.php">Event</a>
+              <a class="nav-link active" aria-current="page" href="shop-event.php">Events</a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link active" aria-current="page" href="team.php">Team</a>
+              <a class="nav-link active" aria-current="page" href="transaksi.php">Transaksi</a>
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="contact.php">Contact</a>

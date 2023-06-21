@@ -133,7 +133,7 @@ session_start();
       <h3 class="text-uppercase fw-bold fs-2 text-white">Hallo Musikers</h3>
       <p class="text-white">Selamat Datang di Dream Fest</p>
       <div class="cntn rounded">
-        <a href="typo.php" class=" text-decoration-none ">Story Lengkap</a>
+        <a href="about.php" class=" text-decoration-none ">Story Lengkap</a>
       </div>
     </div>
 
@@ -148,20 +148,19 @@ session_start();
 
     <div class="box-container">
       <?php
-      $select_products = mysqli_query($con, "SELECT * FROM `events` LIMIT 6") or die('query failed');
-      if (mysqli_num_rows($select_products) > 0) {
-        while ($fetch_products = mysqli_fetch_assoc($select_products)) {
+      $select_events = mysqli_query($con, "SELECT * FROM `events` LIMIT 6") or die('query failed');
+      if (mysqli_num_rows($select_events) > 0) {
+        while ($fetch_event = mysqli_fetch_assoc($select_events)) {
       ?>
           <form action="" method="post" class="box">
-            <img class="image" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
-            <div class="name"><?php echo $fetch_products['nama_events']; ?></div>
-            <div class="price">Rp <?php echo $fetch_products['harga_events']; ?>/-</div>
-            <input type="number" min="1" name="jumlah_events" value="1" class="qty">
-            <input type="hidden" name="nama_events" value="<?php echo $fetch_products['nama_events']; ?>">
-            <input type="hidden" name="deskripsi_events" value="<?php echo $fetch_products['deskripsi_events']; ?>">
-            <input type="hidden" name="product_price" value="<?php echo $fetch_products['harga_events']; ?>">
-            <input type="hidden" name="product_image" value="<?php echo $fetch_products['image']; ?>">
-            <input type="submit" value="add to cart" name="add_to_cart" class="btn">
+            <img src="uploaded_img/<?php echo $fetch_event['image']; ?>" alt="" class="image">
+            <div class="nama"><?php echo $fetch_event['nama_events']; ?></div>
+            <div class="price"> Rp <?php echo $fetch_event['harga_events']; ?> /-</div>
+            <input type="number" class="border border-2" style="width: 40px;" name="jumlah_events" min="1" value="1">
+            <input type="hidden" name="nama_events" value="<?php echo $fetch_event['nama_events']; ?>">
+            <input type="hidden" name="harga_events" value="<?php echo $fetch_event['harga_events']; ?>">
+            <input type="hidden" name="image" value="<?php echo $fetch_event['image']; ?>">
+            <input type="submit" value="add to cart" name="add_cart" class="btn">
           </form>
       <?php
         }
@@ -173,20 +172,21 @@ session_start();
     </div>
 
   </section>
+  
 
   <section class="home">
     <div class="content-3 shadow p-3 mt-5 rounded ">
       <h3 class="text-uppercase text-center fs-2 fw-bold text-white">Punya Pertanyaan?</h3>
-      <p class="text-white text-center">Apabila ingin menanyakan sesuatu, silahkan tinggalan komentar pesan kamu</p>
+      <p class="text-white text-center">Apabila ingin menanyakan sesuatu, silahkan tulis pesan kamu</p>
       <div class="cntn rounded m-4">
-        <a href="contact.php" class="text-decoration-none ">Disini...</a>
+        <a href="message.php" class="text-decoration-none ">Disini...</a>
       </div>
     </div>
 
   </section>
 
   <?php include('./header-footer/footer.php') ?>
-  
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -1,62 +1,39 @@
-<style>
-   .footer {
-      margin: 30px;
-      background-color: var(--light-bg);
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 10vh;
-   }
+<footer class="container-fluid border-top border-3 border-dark  text-center my-3">
 
-   .footer .credit {
-      text-align: center;
-      border-top: black solid 2px;
-      
-   }
-
-   .footer .credit span {
-      color: black;
-   }
-</style>
-
-<section class="footer">
-
-   <div class="row row-cols-2 row-cols-lg-2 g-3 g-lg-3 justify-content-center align-item-center">
-
-      <div class="col-6 ">
+   <div class="row row-cols-2 d-flex justify-content-center align-items-center">
+      <div class="col my-3">
          <h3 class="text-uppercase fs-3">quick links</h3>
-         <a href="./home.php" class="text-decoration-none">home</a>
-         <a href="./typo.php" class="text-decoration-none">about</a>
-         <a href="./events.php" class="text-decoration-none">events</a>
-         <a href="./contact.php" class="text-decoration-none">contact</a>
+         <a href="./home.php" class="text-decoration-none m-3" style="color: #19376d;">Home </a>
+         <a href="./about.php" class="text-decoration-none m-3" style="color: #19376d;">About</a>
+         <a href="./shop-event.php" class="text-decoration-none m-3" style="color: #19376d;">Events</a>
+         <a href="./contact.php" class="text-decoration-none m-4" style="color: #19376d;">Contact</a>
+         <a href="./transaksi.php" class="text-decoration-none m-4" style="color: #19376d;">Transaksi</a>
+      </div>
+      <div class="col my-3">
+         <h3 class="text-uppercase fs-3">follow us</h3>
+         <a href="www.facebook.com" class="text-decoration-none m-3" style="color: #19376d;"> <i class="fab fa-facebook-f"></i> Facebook </a>
+         <a href="www.instagram.com" class="text-decoration-none m-3" style="color: #19376d;"> <i class="fab fa-instagram"></i> Instagram </a>
+         <a href="home.php" class="text-decoration-none m-3" style="color: #19376d;"> <i class="fab fa-instagram"></i> DreamFest </a>
       </div>
 
-      <div class="box col-3">
-         <h3 class="text-uppercase fs-3">extra links</h3>
-         <a href="../../auth/login.php" class="text-decoration-none">login</a>
-         <a href="../../auth/register.php" class="text-decoration-none">register</a>
-         <a href="./cart.php" class="text-decoration-none">cart</a>
-         <a href="./events.php" class="text-decoration-none">Pemesanan</a>
-      </div>
-
-      <div class="col-6">
-         <h3>CONTACT INFORMATIOM</h3>
+      <div class="col my-3">
+         <h3 class="text-uppercase fs-3">CONTACT INFORMATIOn</h3>
          <p> <i class="fas fa-phone"></i> +123-456-7890 </p>
          <p> <i class="fas fa-phone"></i> +62 8234 332</p>
          <p> <i class="fas fa-envelope"></i> Dreamfest@gmail.com </p>
          <p> <i class="fas fa-map-marker-alt"></i> Bandung, Jawa Barat - Indonesia </p>
       </div>
 
-      <div class="col-6">
-         <h3>follow us</h3>
-         <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
-         <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
-         <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
-         <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
+      <div class="col my-3">
+         <h3 class="text-uppercase fs-3">extra links</h3>
+         <a href="../../auth/login.php" class="text-decoration-none m-2" style="color: #19376d;">Login</a>
+         <a href="../../auth/register.php" class="text-decoration-none m-2" style="color: #19376d;">Register</a>
+         <a href="./cart.php" class="text-decoration-none m-4" style="color: #19376d;">Cart</a>
+         <a href="./checkout.php" class="text-decoration-none m-2" style="color: #19376d;">Checkout</a>
       </div>
 
    </div>
 
-   <p class="credit"> &copy; copyright <?php echo date('Y'); ?> by <span>DreamFest</span> </p>
+   <p class="border-top border-3 border-dark text-center"> &copy; copyright <?php echo date('Y'); ?> by <span>DreamFest</span> </p>
 
-</section>
+</footer>
