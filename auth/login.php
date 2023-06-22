@@ -18,13 +18,13 @@ if (isset($_POST['submit'])) {
 
       $_SESSION['admin_nama'] = $row['nama'];
       $_SESSION['admin_email'] = $row['email'];
-      $_SESSION['admin_id'] = $row['id'];
+      $_SESSION['admin_id'] = $row['id_user'];
       header('location: ../view/adminpages/admin-home.php');
     } elseif ($row['user_type'] == 'costumer') {
 
-      $_SESSION['customer_nama'] = $row['nama'];
-      $_SESSION['costumer_email'] = $row['email'];
-      $_SESSION['costumer_id'] = $row['id'];
+      $_SESSION['user_nama'] = $row['nama'];
+      $_SESSION['user_email'] = $row['email'];
+      $_SESSION['user_id'] = $row['id_user'];
       header('location:../view/home.php');
     }
   } else {

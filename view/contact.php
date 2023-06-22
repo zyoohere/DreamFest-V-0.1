@@ -4,23 +4,27 @@ include '../auth/koneksi.php';
 
 session_start();
 
+$user_id = $_SESSION['user_id'];
 
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
 
 if (isset($_POST['send'])) {
 
-  $nama = mysqli_real_escape_string($con, $_POST['nama']);
-  $email = mysqli_real_escape_string($con, $_POST['email']);
-  $tlpn = $_POST['no_tlpn'];
-  $msg = mysqli_real_escape_string($con, $_POST['komentar']);
+$nama = mysqli_real_escape_string($con, $_POST['nama']);
+$email = mysqli_real_escape_string($con, $_POST['email']);
+$tlpn = $_POST['no_tlpn'];
+$msg = mysqli_real_escape_string($con, $_POST['komentar']);
 
-  $select_message = mysqli_query($con, "SELECT * FROM `rate_view` WHERE nama = '$nama' AND email = '$email' AND no_tlpn = '$tlpn' AND komentar = '$msg'") or die('query gagal');
+$select_message = mysqli_query($con, "SELECT * FROM `rate_view` WHERE nama = '$nama' AND email = '$email' AND no_tlpn = '$tlpn' AND komentar = '$msg'") or die('query gagal');
 
-  if (mysqli_num_rows($select_message) > 0) {
-    $message[] = 'message sent already!';
-  } else {
-    mysqli_query($con, "INSERT INTO `rate_view`(id_user, nama, email, no_tlpn, komentar) VALUES('$id_user', '$nama', '$email', '$tlpn', '$msg')") or die('query failed');
-    $message[] = 'message sent successfully!';
-  }
+if (mysqli_num_rows($select_message) > 0) {
+$message[] = 'message sent already!';
+} else {
+mysqli_query($con, "INSERT INTO `rate_view`(id_user, nama, email, no_tlpn, komentar) VALUES('$user_id', '$nama', '$email', '$tlpn', '$msg')") or die('query failed');
+$message[] = 'message sent successfully!';
+}
 }
 ?>
 
@@ -49,7 +53,7 @@ if (isset($_POST['send'])) {
         </ol>
       </div>
     </section>
-    <section class="shadow rounded m-5 p-4 border border-3"  style="background-color: #19376d;">
+    <section class="shadow rounded m-5 p-4 border border-3" style="background-color: #19376d;">
       <div class="d-flex justify-content-center">
         <form action="" method="post" class="p-4">
           <h3 class="text-center text-capitalize text-white fw-bold p-2 fs-2">say something!</h3>
@@ -70,12 +74,12 @@ if (isset($_POST['send'])) {
           </div>
           <div class="row mb-3  d-flex justify-content-center" style="width: 500px;">
             <div class="col-sm-10">
-              <textarea name="send" class="form-control" placeholder="masukan komentar anda" cols="30" rows="10"></textarea>
+              <textarea name="komentar" class="form-control" placeholder="masukan komentar anda" cols="30" rows="10"></textarea>
             </div>
           </div>
           <div class="row mb-3  d-flex justify-content-center" style="width: 500px;">
             <div class="col-sm-10">
-              <input type="submit" value="Kirim Pesan" name="send" class="btn btn-outline-light form-control">
+              <input type="submit" value="Kirim Pesan" name="komentar" class="btn btn-outline-light form-control">
             </div>
           </div>
       </div>

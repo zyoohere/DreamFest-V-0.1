@@ -86,18 +86,29 @@ if (isset($message)) {
               <a class="nav-link active" aria-current="page" href="contact.php">Contact</a>
             </li>
           </ul>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-light dropdown-toggle rounded-circle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle"></i>
 
-
-          <div class="d-grip gap-2">
-            <div class="p-2">
-              <a href="search-page.php"><i class="bi bi-search"></i></a>
-
-              <a href="./cart.php"><i class="bi bi-bag-fill p-3"></i></a>
+            </button>
+            <ul class="dropdown-menu text-center p-4">
+              <p>Nama : <span><?php echo $_SESSION['user_nama']; ?></span></p>
+              <p>Email : <span><?php echo $_SESSION['user_email']; ?></span></p>
               <a href="./../auth/logout.php" class="delete-btn">
                 <i class="bi bi-box-arrow-right"></i>
               </a>
-            </div>
+            </ul>
+            <a href="search-page.php" class="my-3"><i class="bi bi-search"></i></a>
+            <a href="./cart.php" class="my-3 px-4"><i class="bi bi-bag-fill"></i></a>
+          </div>
 
+
+          <div class="m-3">
+            <div class="">
+
+
+
+            </div>
           </div>
 
         </div>

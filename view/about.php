@@ -3,10 +3,13 @@
 include '../auth/koneksi.php';
 
 session_start();
+$user_id = $_SESSION['user_id'];
 
-$videoURL = "https://youtu.be/H_rdRenaT-g";
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
+?>
 
-$convertURL = str_replace("watch?v", "embed/", $videoURL);
 ?>
 
 <!DOCTYPE html>

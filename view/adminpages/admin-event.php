@@ -8,6 +8,7 @@ if (isset($_POST['add_events'])) {
 
   $nama = mysqli_real_escape_string($con, $_POST['nama_events']);
   $harga = $_POST['harga_events'];
+  $deskripsi = $_POST['deskripsi_event'];
   $image = $_FILES['image']['name'];
   $image_size = $_FILES['image']['size'];
   $image_tmp_name = $_FILES['image']['tmp_name'];
@@ -18,13 +19,13 @@ if (isset($_POST['add_events'])) {
   if (mysqli_num_rows($select_events_name) > 0) {
     $message[] = 'Nama Events Berhasil Ditambahkan';
   } else {
-    $add_event_query = mysqli_query($con, "INSERT INTO `events`(nama_events, harga_events, image) VALUES('$nama', '$harga', '$image')") or die('query failed');
+    $add_event_query = mysqli_query($con, "INSERT INTO `events`(nama_events, harga_events, deskripsi_event, image) VALUES('$nama', '$harga','$deskripsi', '$image')") or die('query failed');
 
     if ($add_event_query) {
       if ($image_size > 2000000) {
         $message[] = 'Gambar Terlalu Besar';
       } else {
-        move_uploaded_file($image_tmp_nama, $image_folder);
+        move_uploaded_file($image, $image_tmp_name, $image_folder);
         $message[] = 'Event Berhasil Ditambahkan!';
       }
     } else {
@@ -103,7 +104,9 @@ if (isset($_POST['update_events'])) {
           <input type="number" min="0" name="harga_events" class="form-control border border-secondary" placeholder="Masukan Harga Events" required>
         </div>
         <div class="m-3">
-
+          <textarea type="text" name="deskripsi_event" class="form-control border border-secondary" placeholder="Masukan deskripsi Events" required></textarea>
+        </div>
+        <div class="m-3">
           <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="form-control border border-secondary" required>
         </div>
         <div class="m-3">

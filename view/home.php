@@ -3,6 +3,13 @@
 include '../auth/koneksi.php';
 
 session_start();
+$user_id = $_SESSION['user_id'];
+
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
+?>
+
 
 ?>
 <!DOCTYPE html>
@@ -172,7 +179,7 @@ session_start();
     </div>
 
   </section>
-  
+
 
   <section class="home">
     <div class="content-3 shadow p-3 mt-5 rounded ">

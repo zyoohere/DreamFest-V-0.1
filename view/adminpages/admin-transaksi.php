@@ -7,9 +7,9 @@ session_start();
 
 if (isset($_POST['update_transaksi'])) {
 
-  $transaksi_update_id = $_POST['id_order'];
-  $update_pembayaran = $_POST['update_pembayaran'];
-  mysqli_query($con, "UPDATE `transaksi` SET status_pembayaran = '$update_pembayran' WHERE id_transaksi = '$transaksi_update_id'") or die('query gagal');
+  $transaksi_update_id = $_POST['id_transaksi'];
+  $update_pembayaran = $_POST['update_transaksi'];
+  mysqli_query($con, "UPDATE `transaksi` SET status_pembayaran = '$update_pembayaran' WHERE id_transaksi = '$transaksi_update_id'") or die('query gagal');
   $message[] = 'payment status has been updated!';
 }
 

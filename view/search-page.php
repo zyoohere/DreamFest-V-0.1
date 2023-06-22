@@ -4,7 +4,11 @@ include '../auth/koneksi.php';
 
 session_start();
 
+$user_id = $_SESSION['user_id'];
 
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
 
 if (isset($_POST['add_to_cart'])) {
 
@@ -104,7 +108,7 @@ if (isset($_POST['add_to_cart'])) {
   </section>
 
 
-  <section class="d-flex justify-content-center " >
+  <section class="d-flex justify-content-center ">
 
     <div class="container-fluid" style="min-width: 30vh;">
       <?php
@@ -114,7 +118,7 @@ if (isset($_POST['add_to_cart'])) {
         if (mysqli_num_rows($select_events) > 0) {
           while ($fetch_event = mysqli_fetch_assoc($select_events)) {
       ?>
-            <form action="" method="post" class="shadow rounded m-3 border border-3 border-dark text-center fw-bold " >
+            <form action="" method="post" class="shadow rounded m-3 border border-3 border-dark text-center fw-bold ">
               <img src="uploaded_img/<?php echo $fetch_event['image']; ?>" alt="" class="image">
               <div class="nama"><?php echo $fetch_event['nama_events']; ?></div>
               <div class="price"> Rp <?php echo $fetch_event['harga_events']; ?> /-</div>

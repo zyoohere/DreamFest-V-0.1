@@ -2,22 +2,28 @@
 include '../auth/koneksi.php';
 session_start();
 
+$user_id = $_SESSION['user_id'];
+
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
+
 if (isset($_POST['update_cart'])) {
-  $id_cart = $_POST['id_cart'];
-  $cart_jumlah = $_POST['jumlah_events'];
-  mysqli_query($con, "UPDATE `cart` SET jumlah_events = '$cart_jumlah' WHERE id_cart = '$id_cart'") or die('query gagal');
-  $message[] = 'Jumlah Terupdate!';
+$id_cart = $_POST['id_cart'];
+$cart_jumlah = $_POST['jumlah_events'];
+mysqli_query($con, "UPDATE `cart` SET jumlah_events = '$cart_jumlah' WHERE id_cart = '$id_cart'") or die('query gagal');
+$message[] = 'Jumlah Terupdate!';
 }
 
 if (isset($_GET['delete'])) {
-  $delete_id = $_GET['delete'];
-  mysqli_query($con, "DELETE FROM `cart` WHERE id_cart = '$delete_id'") or die('query gagal');
-  header('location:cart.php');
+$delete_id = $_GET['delete'];
+mysqli_query($con, "DELETE FROM `cart` WHERE id_cart = '$delete_id'") or die('query gagal');
+header('location:cart.php');
 }
 
 if (isset($_GET['delete_all'])) {
-  mysqli_query($con, "DELETE FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
-  header('location:cart.php');
+mysqli_query($con, "DELETE FROM `cart` WHERE id_user = '$user_id'") or die('query gagal');
+header('location:cart.php');
 }
 
 ?>
@@ -95,7 +101,7 @@ if (isset($_GET['delete_all'])) {
     <div class="box-container">
       <?php
       $grand_total = 0;
-      $select_cart = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
+      $select_cart = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$user_id'") or die('query gagal');
       if (mysqli_num_rows($select_cart) > 0) {
         while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
       ?>
@@ -106,7 +112,7 @@ if (isset($_GET['delete_all'])) {
             <div class="price">Rp <?php echo $fetch_cart['harga_events']; ?>/-</div>
             <form action="" method="post">
               <input type="hidden" name="id_cart" value="<?php echo $fetch_cart['id_cart']; ?>">
-              <input type="number" min="1" name="cart_quantity" value="<?php echo $fetch_cart['jumlah_events']; ?>">
+              <input type="number" min="1" max="100" name="jumlah_events" value="<?php echo $fetch_cart['jumlah_events']; ?>">
               <input type="submit" name="update_cart" value="update" class="option-btn">
             </form>
             <div class="sub-total"> sub total : <span>Rp <?php echo $sub_total = ($fetch_cart['jumlah_events'] * $fetch_cart['harga_events']); ?>/-</span> </div>

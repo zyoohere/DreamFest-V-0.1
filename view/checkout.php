@@ -2,43 +2,49 @@
 
 include '../auth/koneksi.php';
 session_start();
+$user_id = $_SESSION['user_id'];
+
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
+
 
 if (isset($_POST['order_btn'])) {
 
-  $nama = mysqli_real_escape_string($con, $_POST['nama']);
-  $no_tlpn = $_POST['no_tlpn'];
-  $email = mysqli_real_escape_string($con, $_POST['email']);
-  $method = mysqli_real_escape_string($con, $_POST['method']);
-  $address = mysqli_real_escape_string($con, 'No. ' . $_POST['flat'] . ', ' . $_POST['jalan'] . ', ' . $_POST['kota'] . ', ' . $_POST['provinsi'] . ' - ' . $_POST['kode_pos']);
-  $tgl_transaksi = date('d-M-Y');
+$nama = mysqli_real_escape_string($con, $_POST['nama']);
+$no_tlpn = $_POST['no_tlpn'];
+$email = mysqli_real_escape_string($con, $_POST['email']);
+$method = mysqli_real_escape_string($con, $_POST['method']);
+$address = mysqli_real_escape_string($con, $_POST['alamat']);
+$tgl_transaksi = date('d-M-Y');
 
-  $cart_total = 0;
-  $cart_events[] = '';
+$cart_total = 0;
+$cart_events[] = '';
 
-  $cart_query = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
-  if (mysqli_num_rows($cart_query) > 0) {
-    while ($cart_item = mysqli_fetch_assoc($cart_query)) {
-      $cart_events[] = $cart_item['nama'] . ' (' . $cart_item['jumlah_events'] . ') ';
-      $sub_total = ($cart_item['harga_events'] * $cart_item['jumlah_events']);
-      $cart_total += $sub_total;
-    }
-  }
+$cart_query = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$user_id'") or die('query gagal');
+if (mysqli_num_rows($cart_query) > 0) {
+while ($cart_item = mysqli_fetch_assoc($cart_query)) {
+$cart_events[] = $cart_item['nama'] . ' (' . $cart_item['jumlah_events'] . ') ';
+$sub_total = ($cart_item['harga_events'] * $cart_item['jumlah_events']);
+$cart_total += $sub_total;
+}
+}
 
-  $total_events = implode(', ', $cart_events);
+$total_events = implode(', ', $cart_events);
 
-  $order_query = mysqli_query($con, "SELECT * FROM `events` WHERE nama_events = '$nama' AND no_tlpn = '$no_tlpn' AND email = '$email' AND metode_pembayaran = '$method' AND alamat = '$address' AND total_events = '$total_events' AND total_harga = '$cart_total'") or die('query gagal');
+$order_query = mysqli_query($con, "SELECT * FROM `transaksi` WHERE nama = '$nama' AND no_tlpn = '$no_tlpn' AND email = '$email' AND metode_pembayaran = '$method' AND alamat = '$address' AND total_events = '$total_events' AND total_harga = '$cart_total'") or die('query gagal');
 
-  if ($cart_total == 0) {
-    $message[] = 'Cart kamu kosong';
-  } else {
-    if (mysqli_num_rows($order_query) > 0) {
-      $message[] = 'Transaksi kamu berhasil';
-    } else {
-      mysqli_query($con, "INSERT INTO `transaksi`(id_user, nama, no_tlpn, email, metode_pembayaran, alamat, total_eventss, total_harga, tgl_transaksi) VALUES('$id_user', '$nama', '$number', '$email', '$method', '$address', '$total_events', '$cart_total', '$tgl_transaksi')") or die('query gagal');
-      $message[] = 'transaksi sudah berhasil!';
-      mysqli_query($con, "DELETE FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
-    }
-  }
+if ($cart_total == 0) {
+$message[] = 'Cart kamu kosong';
+} else {
+if (mysqli_num_rows($order_query) > 0) {
+$message[] = 'Transaksi kamu berhasil';
+} else {
+mysqli_query($con, "INSERT INTO `transaksi`(id_user, nama, no_tlpn, email, metode_pembayaran, alamat, total_events, total_harga, tgl_transaksi) VALUES('$user_id', '$nama', '$no_tlpn', '$email', '$method', '$address', '$total_events', '$cart_total', '$tgl_transaksi')") or die('query gagal');
+$message[] = 'transaksi sudah berhasil!';
+mysqli_query($con, "DELETE FROM `cart` WHERE id_user = '$user_id'") or die('query gagal');
+}
+}
 }
 
 ?>
@@ -75,7 +81,7 @@ if (isset($_POST['order_btn'])) {
 
     <?php
     $grand_total = 0;
-    $select_cart = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$id_user'") or die('query gagal');
+    $select_cart = mysqli_query($con, "SELECT * FROM `cart` WHERE id_user = '$user_id'") or die('query gagal');
     if (mysqli_num_rows($select_cart) > 0) {
       while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
         $total_harga = ($fetch_cart['harga_events'] * $fetch_cart['jumlah_events']);
@@ -119,10 +125,10 @@ if (isset($_POST['order_btn'])) {
         </div>
         <div class="inputBox">
           <span>Alamat</span>
-          <input type="text" min="0" name="alamat" required placeholder="Alamat Lengkap" class="form-control" > 
+          <input type="text" min="0" name="alamat" required placeholder="Alamat Lengkap" class="form-control">
         </div>
-        
-       
+
+
         <div class="inputBox">
           <span>Kode Pos</span>
           <input type="number" min="0" name="kode_pos" required placeholder=",,, 25021" class="form-control">

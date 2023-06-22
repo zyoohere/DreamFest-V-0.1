@@ -3,21 +3,27 @@
 include '../auth/koneksi.php';
 session_start();
 
+$user_id = $_SESSION['user_id'];
+
+if (!isset($user_id)) {
+  header('location:../auth/login.php');
+}
+
 if (isset($_POST['add_cart'])) {
 
-  $nama_events = $_POST['nama'];
-  $harga_events = $_POST['harga_events'];
-  $image = $_POST['image'];
-  $jumlah_events = $_POST['jumlah_events'];
+$nama  = $_POST['nama_events'];
+$harga_events = $_POST['harga_events'];
+$image = $_POST['image'];
+$jumlah_events = $_POST['jumlah_events'];
 
-  $check_cart_numbers = mysqli_query($con, "SELECT * FROM `cart` WHERE nama = '$nama_events' AND id_user = '$id_user'") or die('query gagal');
+$check_cart_numbers = mysqli_query($con, "SELECT * FROM `cart` WHERE nama = '$nama' AND id_user = '$user_id'") or die('query gagal');
 
-  if (mysqli_num_rows($check_cart_numbers) > 0) {
-    $message[] = 'Berhasil Ditambahkan!';
-  } else {
-    mysqli_query($con, "INSERT INTO `cart`(id_user, nama, harga_events, jumlah_events, image) VALUES('$id_user', '$nama_events', '$harga_events', '$jumlah_events', '$image')") or die('query gagal');
-    $message[] = 'Event ditambahkan!';
-  }
+if (mysqli_num_rows($check_cart_numbers) > 0) {
+$message[] = 'Berhasil Ditambahkan!';
+} else {
+mysqli_query($con, "INSERT INTO `cart`(id_user, nama, harga_events, jumlah_events, image) VALUES('$user_id', '$nama', '$harga_events', '$jumlah_events', '$image')") or die('query gagal');
+$message[] = 'Event ditambahkan!';
+}
 }
 ?>
 
@@ -107,17 +113,17 @@ if (isset($_POST['add_cart'])) {
         </div>
       </section>
 
- 
-    
+
+
   <?php
     }
   } else {
     echo '<p class="empty">Belum ada Event!</p>';
   }
   ?>
-  
+
   <?php include('./header-footer/footer.php') ?>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
