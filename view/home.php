@@ -155,7 +155,7 @@ if (!isset($user_id)) {
 
     <div class="box-container">
       <?php
-      $select_events = mysqli_query($con, "SELECT * FROM `events` LIMIT 6") or die('query failed');
+      $select_events = mysqli_query($con, "SELECT * FROM `events` LIMIT 10") or die('query failed');
       if (mysqli_num_rows($select_events) > 0) {
         while ($fetch_event = mysqli_fetch_assoc($select_events)) {
       ?>

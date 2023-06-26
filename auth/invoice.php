@@ -29,31 +29,35 @@ if (!isset($user_id)) {
         <h1>DreamFest</h1>
 
         <section class="container-lg border border-3">
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center align-items-center">
             <?php
-            $trns_query = mysqli_query($con, "SELECT * FROM `transaksi` WHERE id_user = '$user_id'") or die('query gagal;');
+            $trns_query = mysqli_query($con, "SELECT * FROM `transaksi` WHERE id_user = '$user_id' AND status_pembayaran = 'update'") or die('query gagal;');
             if (mysqli_num_rows($trns_query) > 0) {
               while ($fetch_trns = mysqli_fetch_assoc($trns_query)) {
             ?>
-                <div class="form-control">
-                  <p> Tanggal Transaksi : <span><?php echo $fetch_trns['tgl_transaksi']; ?></span> </p>
-                  <p> name : <span><?php echo $fetch_trns['nama']; ?></span> </p>
-                  <p> number : <span><?php echo $fetch_trns['no_tlpn']; ?></span> </p>
-                  <p> email : <span><?php echo $fetch_trns['email']; ?></span> </p>
-                  <p> address : <span><?php echo $fetch_trns['alamat']; ?></span> </p>
-                  <p> payment method : <span><?php echo $fetch_trns['metode_pembayaran']; ?></span> </p>
-                  <p> your orders : <span><?php echo $fetch_trns['total_events']; ?></span> </p>
-                  <p> total price : <span>Rp<?php echo $fetch_trns['total_harga']; ?>/-</span> </p>
-                  <p> payment status : <span style="color:<?php if ($fetch_trns['status_pembayaran'] == 'pending') {
-                                                            echo 'red';
-                                                          } else {
-                                                            echo 'green';
-                                                          } ?>;"><?php echo $fetch_trns['status_pembayaran']; ?></span> </p>
-                 
+                <div class="form-control row d-flex justify-content-center">
+                  <div class="col-md-3">
+                    <p> Tanggal Transaksi : <span><?php echo $fetch_trns['tgl_transaksi']; ?></span> </p>
+                    <p> name : <span><?php echo $fetch_trns['nama']; ?></span> </p>
+                    <p> number : <span><?php echo $fetch_trns['no_tlpn']; ?></span> </p>
+                    <p> email : <span><?php echo $fetch_trns['email']; ?></span> </p>
+                    <p> address : <span><?php echo $fetch_trns['alamat']; ?></span> </p>
+                    <p> payment method : <span><?php echo $fetch_trns['metode_pembayaran']; ?></span> </p>
+                    <p> your orders : <span><?php echo $fetch_trns['total_events']; ?></span> </p>
+                    <p> total price : <span>Rp<?php echo $fetch_trns['total_harga']; ?>/-</span> </p>
+                    <p> payment status : <span style="color:<?php if ($fetch_trns['status_pembayaran'] == 'pending') {
+                                                              echo 'red';
+                                                            } else {
+                                                              echo 'green';
+                                                            } ?>;"><?php echo $fetch_trns['status_pembayaran']; ?></span> </p>
+
+                  </div>
+
+
                 </div>
             <?php
               }
-            } 
+            }
             ?>
           </div>
       </div>

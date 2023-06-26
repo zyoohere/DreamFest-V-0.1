@@ -11,19 +11,19 @@ if (!isset($user_id)) {
 
 if (isset($_POST['add_cart'])) {
 
-$nama  = $_POST['nama_events'];
-$harga_events = $_POST['harga_events'];
-$image = $_POST['image'];
-$jumlah_events = $_POST['jumlah_events'];
+  $nama  = $_POST['nama_events'];
+  $harga_events = $_POST['harga_events'];
+  $image = $_POST['image'];
+  $jumlah_events = $_POST['jumlah_events'];
 
-$check_cart_numbers = mysqli_query($con, "SELECT * FROM `cart` WHERE nama = '$nama' AND id_user = '$user_id'") or die('query gagal');
+  $check_cart_numbers = mysqli_query($con, "SELECT * FROM `cart` WHERE nama = '$nama' AND id_user = '$user_id'") or die('query gagal');
 
-if (mysqli_num_rows($check_cart_numbers) > 0) {
-$message[] = 'Berhasil Ditambahkan!';
-} else {
-mysqli_query($con, "INSERT INTO `cart`(id_user, nama, harga_events, jumlah_events, image) VALUES('$user_id', '$nama', '$harga_events', '$jumlah_events', '$image')") or die('query gagal');
-$message[] = 'Event ditambahkan!';
-}
+  if (mysqli_num_rows($check_cart_numbers) > 0) {
+    $message[] = 'Berhasil Ditambahkan!';
+  } else {
+    mysqli_query($con, "INSERT INTO `cart`(id_user, nama, harga_events, jumlah_events, image) VALUES('$user_id', '$nama', '$harga_events', '$jumlah_events', '$image')") or die('query gagal');
+    $message[] = 'Event ditambahkan!';
+  }
 }
 ?>
 
@@ -100,21 +100,18 @@ $message[] = 'Event ditambahkan!';
         <div class="col-5 bg-white" style="height: auto;">
           <div class="m-2 border border-3">
             <form action="" method="post" class="text-center">
-              <img class="image" src="uploaded_img/<?php echo $fetch_events['image']; ?>" alt="">
+              <img class="image" src="uploaded_img/<?php echo $fetch_events['image']; ?>" alt="" style="width: 250px;">
               <div class="name"><?php echo $fetch_events['nama_events']; ?></div>
               <div class="price">Rp <?php echo $fetch_events['harga_events']; ?>/-</div>
               <input type="number" min="1" name="jumlah_events" value="1" class="qty">
               <input type="hidden" name="nama_events" value="<?php echo $fetch_events['nama_events']; ?>">
               <input type="hidden" name="harga_events" value="<?php echo $fetch_events['harga_events']; ?>">
-              <input type="hidden" name="image" value="<?php echo $fetch_events['image']; ?>">
+              <input type="hidden" name="image" style="width: 500px;" value="<?php echo $fetch_events['image']; ?>">
               <input type="submit" value="add to cart" name="add_cart" class="btn btn-secondary m-2">
             </form>
           </div>
         </div>
       </section>
-
-
-
   <?php
     }
   } else {

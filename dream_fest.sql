@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jun 2023 pada 15.50
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Generation Time: Jun 26, 2023 at 02:57 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
@@ -34,12 +34,12 @@ CREATE TABLE `cart` (
   `harga_events` int(255) NOT NULL,
   `jumlah_events` int(100) NOT NULL,
   `image` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `events`
+-- Table structure for table `events`
 --
 
 CREATE TABLE `events` (
@@ -48,12 +48,12 @@ CREATE TABLE `events` (
   `deskripsi_event` varchar(255) NOT NULL,
   `image` varchar(100) NOT NULL,
   `harga_events` int(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rate_view`
+-- Table structure for table `rate_view`
 --
 
 CREATE TABLE `rate_view` (
@@ -63,12 +63,12 @@ CREATE TABLE `rate_view` (
   `email` varchar(255) NOT NULL,
   `no_tlpn` varchar(15) NOT NULL,
   `komentar` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -81,40 +81,32 @@ CREATE TABLE `transaksi` (
   `total_events` varchar(500) NOT NULL,
   `total_harga` int(100) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `status_pembayaran` varchar(20) NOT NULL DEFAULT 'pending'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `status_pembayaran` varchar(20) NOT NULL DEFAULT 'pending',
+  `tgl_transaksi` varchar(50) NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id_user` int(100) NOT NULL,
-  `user_type` varchar(20) NOT NULL DEFAULT 'costumer',
+  `user_type` varchar(20) NOT NULL DEFAULT 'user',
   `jenis_kelamin` enum('laki-laki','perempuan') NOT NULL,
   `nama` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `no_tlpn` int(15) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `user`
---
-
-INSERT INTO `user` (`id_user`, `user_type`, `jenis_kelamin`, `nama`, `email`, `no_tlpn`, `password`) VALUES
-(1, 'admin', 'laki-laki', 'admin', 'admin@gmail.com', 12345667, '21232f297a57a5a743894a0e4a801fc3'),
-(7, 'costumer', 'laki-laki', 'zeis', 'zeis@gmail.com', 430340, '9329ea37a12fa02ce8b4f004f7f0fa1a'),
-(8, 'costumer', 'laki-laki', 'user', 'user@gmail.com', 29299, 'ee11cbb19052e40b07aac0ca060c23ee');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id_cart`),
@@ -122,7 +114,7 @@ ALTER TABLE `cart`
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `events`
+-- Indexes for table `events`
 --
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id_events`),
@@ -130,59 +122,59 @@ ALTER TABLE `events`
   ADD KEY `id_events_2` (`id_events`);
 
 --
--- Indeks untuk tabel `rate_view`
+-- Indexes for table `rate_view`
 --
 ALTER TABLE `rate_view`
   ADD PRIMARY KEY (`id_rate`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `cart`
+-- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id_cart` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cart` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `events`
+-- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id_events` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_events` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT untuk tabel `rate_view`
+-- AUTO_INCREMENT for table `rate_view`
 --
 ALTER TABLE `rate_view`
-  MODIFY `id_rate` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rate` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

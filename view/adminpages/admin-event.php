@@ -3,6 +3,11 @@
 include '../../auth/koneksi.php';
 
 session_start();
+$admin_id = $_SESSION['admin_id'];
+
+if (!isset($admin_id)) {
+  header('location:../../auth/login.php');
+};
 
 if (isset($_POST['add_events'])) {
 
@@ -12,7 +17,7 @@ if (isset($_POST['add_events'])) {
   $image = $_FILES['image']['name'];
   $image_size = $_FILES['image']['size'];
   $image_tmp_name = $_FILES['image']['tmp_name'];
-  $image_folder = 'uploaded_img/' . $image;
+  $image_folder = '../uploaded_img/' . $image;
 
   $select_events_name = mysqli_query($con, "SELECT nama_events FROM `events` WHERE nama_events = '$nama'") or die('query failed');
 
@@ -25,7 +30,7 @@ if (isset($_POST['add_events'])) {
       if ($image_size > 2000000) {
         $message[] = 'Gambar Terlalu Besar';
       } else {
-        move_uploaded_file($image, $image_tmp_name, $image_folder);
+        move_uploaded_file($image_tmp_name, $image_folder);
         $message[] = 'Event Berhasil Ditambahkan!';
       }
     } else {
@@ -38,7 +43,7 @@ if (isset($_GET['delete'])) {
   $delete_id = $_GET['delete'];
   $delete_image_query = mysqli_query($con, "SELECT image FROM `events` WHERE id_events = '$delete_id'") or die('query gagal');
   $fetch_delete_image = mysqli_fetch_assoc($delete_image_query);
-  unlink('uploaded_img/' . $fetch_delete_image['image']);
+  unlink('../uploaded_img/' . $fetch_delete_image['image']);
   mysqli_query($con, "DELETE FROM `events` WHERE id_events = '$delete_id'") or die('query gagal');
   header('location:admin-events.php');
 }
@@ -48,13 +53,14 @@ if (isset($_POST['update_events'])) {
   $update_p_id = $_POST['update_p_id'];
   $update_nama = $_POST['update_nama'];
   $update_harga = $_POST['update_harga'];
+  $deskripsi = $_POST['deskripsi_event'];
 
-  mysqli_query($con, "UPDATE `events` SET nama_events = '$update_nama', harga_events = '$update_harga' WHERE id_events = '$update_p_id'") or die('query gagal');
+  mysqli_query($con, "UPDATE `events` SET nama_events = '$update_nama', harga_events = '$update_harga', deskripsi_event = '$deskripsi' WHERE id_events = '$update_p_id'") or die('query gagal');
 
   $update_image = $_FILES['update_image']['nama_events'];
   $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
   $update_image_size = $_FILES['update_image']['size'];
-  $update_folder = 'uploaded_img/' . $update_image;
+  $update_folder = '../uploaded_img/' . $update_image;
   $update_old_image = $_POST['update_old_image'];
 
   if (!empty($update_image)) {
@@ -63,13 +69,12 @@ if (isset($_POST['update_events'])) {
     } else {
       mysqli_query($con, "UPDATE `events` SET image = '$update_image' WHERE id_events = '$update_p_id'") or die('query gagal');
       move_uploaded_file($update_image_tmp_name, $update_folder);
-      unlink('uploaded_img/' . $update_old_image);
+      unlink('../uploaded_img/' . $update_old_image);
     }
   }
 
   header('location:admin-events.php');
 }
-
 ?>
 
 
@@ -127,9 +132,11 @@ if (isset($_POST['update_events'])) {
         while ($fetch_events = mysqli_fetch_assoc($select_events)) {
       ?>
           <div class=" border border-secondary m-4 ">
-            <img src="uploaded_img/<?php echo $fetch_events['image']; ?>" alt="">
+            <img src="../uploaded_img/<?php echo $fetch_events['image']; ?>" alt="" style="width: 500px;">
             <div class="nama_events"><?php echo $fetch_events['nama_events']; ?></div>
             <div class="harga_events">Rp <?php echo $fetch_events['harga_events']; ?> /-</div>
+            <div class="">Rp <?php echo $fetch_events['harga_events']; ?></div>
+            <p><?php echo $fetch_events['deskripsi_event']; ?></p>
             <a href="admin-event.php?update=<?php echo $fetch_events['id_events']; ?>" class="btn  text-decoration-none btn-secondary">update</a>
             <a href="admin-event.php?delete=<?php echo $fetch_events['id_events']; ?>" class="btn text-decoration-none" onclick="return confirm('Hapus Event ini?');">Hapus</a>
           </div>
@@ -140,6 +147,7 @@ if (isset($_POST['update_events'])) {
       }
       ?>
     </div>
+
   </section>
 
 
@@ -156,13 +164,16 @@ if (isset($_POST['update_events'])) {
             <form action="" method="post" enctype="multipart/form-data">
               <input type="hidden" name="update_p_id" value="<?php echo $fetch_update['id_events']; ?>">
               <input type="hidden" name="update_old_image" value="<?php echo $fetch_update['image']; ?>">
-              <img src="uploaded_img/<?php echo $fetch_update['image']; ?>" alt="">
+              <img src="../uploaded_img/<?php echo $fetch_update['image']; ?>" alt="" style="width: 400px;">
 
               <div class="m-3">
                 <input type="text" name="update_nama" value="<?php echo $fetch_update['nama_events']; ?>" class="form-control border border-secondary" required placeholder="Masukan Nama Event">
               </div>
               <div class="m-3">
                 <input type="number" name="update_harga" value="<?php echo $fetch_update['harga_events']; ?>" min="0" class="form-control border border-secondary" required placeholder="Masukan Harga Events">
+              </div>
+              <div class="m-3">
+                <input type="text" name="update_deskripsi" value="<?php echo $fetch_update['deskripsi_event']; ?>" min="0" class="form-control border border-secondary" required placeholder="Masukan deskripsi Events">
               </div>
               <div class="m-3">
 
@@ -172,7 +183,7 @@ if (isset($_POST['update_events'])) {
 
 
 
-                <input type="submit" value="update" name="update_events" class="btn btn-outline-secondary">
+                <input type="submit" value="update" name="update" class="btn btn-outline-secondary">
 
                 <input type="reset" value="cancel" id="close-update" class="btn btn-outline-secondary">
               </div>
